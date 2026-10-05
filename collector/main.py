@@ -80,16 +80,20 @@ def fetch_search(cfg):
         log("[search] BRAVE_API_KEY not set, skipping web search")
         return []
     out = []
+    blocked = [b.lower() for b in cfg.get("blocked_domains", [])]
     for q in cfg.get("search_queries", []):
         try:
             r = requests.get(
                 "https://api.search.brave.com/res/v1/web/search",
-                params={"q": q, "count": 20, "freshness": "pw", "country": "in"},
+                params={"q": q, "count": 20, "freshness": cfg.get("search_freshness", "pm"), "country": "in"},
                 headers={"X-Subscription-Token": key, "Accept": "application/json"},
                 timeout=20)
             r.raise_for_status()
             res = r.json().get("web", {}).get("results", [])
             for x in res:
+                host = urlsplit(x["url"]).netloc.lower().replace("www.", "")
+                if any(host == b or host.endswith("." + b) for b in blocked):
+                    continue
                 out.append({"title": x.get("title", ""), "url": x["url"],
                             "snippet": re.sub(r"<[^>]+>", "", x.get("description", ""))[:600],
                             "source": urlsplit(x["url"]).netloc.replace("www.", "")})
@@ -106,7 +110,7 @@ For each numbered item decide if it is a genuine, currently actionable opportuni
 - a vacancy / retainership for an AOR or Supreme Court counsel (law firm, company, PSU, bank, NGO)
 - an empanelment / panel-counsel invitation that includes the Supreme Court
 - a tender or expression of interest for legal services before the Supreme Court
-NOT relevant: news stories, judgments, general articles, junior-associate or fresher jobs, internships, expired notices, aggregator category pages with no specific posting.
+NOT relevant: news stories, judgments, general articles, junior-associate or fresher jobs, internships, expired notices, aggregator category pages with no specific posting, Supreme Court of India staff recruitment (clerks, assistants, court masters), and anything outside India (for example US pages where "AOR" or "attorney on retainer" means something unrelated).
 
 Return ONLY a JSON array, one object per item, in order:
 {"i": <number>, "relevant": true|false, "title": "<clean title>", "org": "<organisation or null>", "location": "<city/state or null>", "deadline": "<YYYY-MM-DD or null>", "type": "panel|job|tender|other", "summary": "<one sentence, max 25 words>"}

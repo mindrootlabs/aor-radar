@@ -1,17 +1,43 @@
 # AOR Radar - sources and search queries.
-# Edit freely. Feeds that fail are logged and skipped, they never break the run.
+# Edit freely. Feeds/queries that fail are logged and skipped, they never break the run.
 
-# Web search queries (needs BRAVE_API_KEY). Results from the past week only.
-# This is the main discovery mechanism: it reaches boards and notices that have no RSS feed.
+# How far back web search looks. pm = past month. Duplicates are filtered by the seen list,
+# so a wide window does not cause repeat emails.
+search_freshness: pm
+
+# Web search queries (needs BRAVE_API_KEY). Each query costs one search credit per run.
+# Job-board queries use site: so results come from places that actually list postings.
 search_queries:
-  - '"advocate on record" Supreme Court retainer vacancy'
-  - '"AOR" Supreme Court of India vacancy advocate'
-  - '"Advocate-on-Record" empanelment panel counsel Supreme Court'
-  - 'empanelment of advocates Supreme Court of India panel counsel notice'
-  - 'invites applications advocates on record Supreme Court retainer'
-  - 'Supreme Court counsel retainer law firm hiring AOR'
-  - 'litigation Supreme Court AOR job opening Delhi'
-  - 'legal panel advocates Supreme Court bank OR PSU OR corporation expression of interest'
+  - '"advocate on record" vacancy OR hiring OR required Supreme Court New Delhi'
+  - "AOR required Supreme Court of India law firm retainer"
+  - 'site:lawctopus.com "advocate on record" OR AOR Supreme Court'
+  - 'site:legallyindia.com "advocate on record" OR AOR job'
+  - 'site:in.indeed.com "advocate on record" OR AOR Supreme Court'
+  - 'site:naukri.com "advocate on record" OR AOR Supreme Court'
+  - "empanelment panel of advocates Supreme Court of India invites applications"
+  - 'India panel counsel "advocate on record" empanelment bank OR PSU OR commission OR corporation'
+  - 'India expression of interest legal services Supreme Court of India "advocate on record"'
+
+# Results from these sites are dropped before they reach the AI filter (saves cost, cuts noise).
+blocked_domains:
+  - supremecourt.gov
+  - uscourts.gov
+  - usajobs.gov
+  - justice.gov
+  - nycourts.gov
+  - statejobs.ny.gov
+  - pewpewtactical.com
+  - hklaw.com
+  - opindia.com
+  - indiatoday.in
+  - thehindu.com
+  - indianexpress.com
+  - thehansindia.com
+  - newindianexpress.com
+  - verdictum.in
+  - lawtrend.in
+  - lawchakra.in
+  - indialegallive.com
 
 # RSS/Atom feeds. Only feeds that were checked and respond are listed.
 # Checked 2026-10-05: Bar & Bench OK. LiveLaw and Legally India feed URLs returned 404;
