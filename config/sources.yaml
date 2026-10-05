@@ -8,7 +8,8 @@ search_freshness: pm
 # Web search queries (needs BRAVE_API_KEY). Each query costs one search credit per run.
 # Job-board queries use site: so results come from places that actually list postings.
 search_queries:
-  - '"advocate on record" vacancy OR hiring OR required Supreme Court New Delhi'
+  - 'hiring "advocate on record" retainer OR retainership OR "on retainer" India'
+  - 'site:katcheri.in "advocate on record" OR AOR retainer OR retainership OR empanelment'
   - "AOR required Supreme Court of India law firm retainer"
   - 'site:lawctopus.com "advocate on record" OR AOR Supreme Court'
   - 'site:legallyindia.com "advocate on record" OR AOR job'
@@ -38,6 +39,25 @@ blocked_domains:
   - lawtrend.in
   - lawchakra.in
   - indialegallive.com
+  - theprint.in
+  - dtnext.in
+  - kashmirobserver.net
+  - kashmirreader.com
+  - nenow.in
+  - legal.economictimes.indiatimes.com
+  - prabhatkhabar.com
+  # government-job aggregators (court staff jobs) and reference pages
+  - govnokri.in
+  - apcareers.in
+  - careerpower.in
+  - agrijob.in
+  - jobs.obcrights.org
+  - testbook.com
+  - bajajfinserv.in
+  - wikipedia.org
+  - bmu.edu.in
+  - opasis.com
+  - legalmaestros.com
 
 # RSS/Atom feeds. Only feeds that were checked and respond are listed.
 # Checked 2026-10-05: Bar & Bench OK. LiveLaw and Legally India feed URLs returned 404;
