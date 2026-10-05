@@ -113,22 +113,44 @@ Return ONLY a JSON array, one object per item, in order:
 Use only what the text supports; use null if unknown. Today is """ + TODAY + "."
 
 
+def parse_json_array(txt):
+    """Find the model's JSON array even if it adds prose, code fences or '[0]'-style labels."""
+    dec = json.JSONDecoder()
+    empty_found = False
+    for m in re.finditer(r"\[", txt):
+        try:
+            val, _ = dec.raw_decode(txt[m.start():])
+        except ValueError:
+            continue
+        if not isinstance(val, list):
+            continue
+        if not val:
+            empty_found = True
+        elif all(isinstance(x, dict) and "i" in x for x in val):
+            return val
+    if empty_found:
+        return []
+    raise ValueError("no JSON array of results found")
+
+
 def classify(client, items):
     results = []
     for s in range(0, len(items), BATCH):
         chunk = items[s:s + BATCH]
         body = "\n\n".join(
-            f"[{i}] {it['title']}\nURL: {it['url']}\nSource: {it['source']}\n{it['snippet']}"
+            f"Item {i}: {it['title']}\nURL: {it['url']}\nSource: {it['source']}\n{it['snippet']}"
             for i, it in enumerate(chunk))
+        txt = ""
         try:
             msg = client.messages.create(model=MODEL, max_tokens=3000,
                                          messages=[{"role": "user", "content": PROMPT + "\n\n" + body}])
             txt = msg.content[0].text
-            m = re.search(r"\[.*\]", txt, re.S)
-            arr = json.loads(m.group(0))
+            arr = parse_json_array(txt)
+            kept = set()
             for a in arr:
                 idx = a.get("i")
                 if isinstance(idx, int) and 0 <= idx < len(chunk) and a.get("relevant"):
+                    kept.add(idx)
                     it = chunk[idx]
                     results.append({
                         "id": item_id(it["url"]), "title": a.get("title") or it["title"],
@@ -136,8 +158,12 @@ def classify(client, items):
                         "deadline": a.get("deadline"), "type": a.get("type") or "other",
                         "summary": a.get("summary"), "url": it["url"],
                         "source": it["source"], "first_seen": TODAY})
+            log(f"[classify] batch {s}: {len(kept)} relevant of {len(chunk)}")
+            for j, it in enumerate(chunk):
+                if j not in kept:
+                    log(f"   - rejected: {it['title'][:90]} ({it['source']})")
         except Exception as ex:
-            log(f"[classify] batch {s} FAILED: {ex}")
+            log(f"[classify] batch {s} FAILED: {ex} | response head: {txt[:200]!r}")
             # do not mark these as seen so they get retried tomorrow
             for it in chunk:
                 it["_failed"] = True
