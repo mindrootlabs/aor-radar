@@ -1,0 +1,24 @@
+# AOR Radar - sources and search queries.
+# Edit freely. Feeds that fail are logged and skipped, they never break the run.
+
+# Web search queries (needs BRAVE_API_KEY). Results from the past week only.
+# This is the main discovery mechanism: it reaches boards and notices that have no RSS feed.
+search_queries:
+  - '"advocate on record" Supreme Court retainer vacancy'
+  - '"AOR" Supreme Court of India vacancy advocate'
+  - '"Advocate-on-Record" empanelment panel counsel Supreme Court'
+  - 'empanelment of advocates Supreme Court of India panel counsel notice'
+  - 'invites applications advocates on record Supreme Court retainer'
+  - 'Supreme Court counsel retainer law firm hiring AOR'
+  - 'litigation Supreme Court AOR job opening Delhi'
+  - 'legal panel advocates Supreme Court bank OR PSU OR corporation expression of interest'
+
+# RSS/Atom feeds. Only feeds that were checked and respond are listed.
+# Checked 2026-10-05: Bar & Bench OK. LiveLaw and Legally India feed URLs returned 404;
+# Lawctopus disallows bots in robots.txt, so it is left out. Add feeds here as you find good ones.
+rss_feeds:
+  - name: Bar & Bench
+    url: https://www.barandbench.com/feed
+
+# Cheap keyword pre-filter applied to RSS items before they go to the LLM.
+rss_prefilter_regex: '(advocate[- ]on[- ]record|\bAOR\b|supreme court|empanel|panel (counsel|advocate)|retainer)'
