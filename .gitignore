@@ -1,0 +1,25 @@
+# Secrets - never commit these. Real keys live in GitHub Actions secrets only.
+.env
+.env.*
+*.key
+*.pem
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs and scratch
+*.log
+tmp/
+
+# NOTE: do NOT ignore docs/openings.json or data/seen.json.
+# The daily GitHub Action commits them; the dashboard and de-duplication depend on them.
