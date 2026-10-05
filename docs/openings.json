@@ -1,4 +1,17 @@
 {
- "updated": "2026-10-05T18:20:09.950592+00:00",
- "items": []
+ "updated": "2026-10-05T18:30:25.947918+00:00",
+ "items": [
+  {
+   "id": "9e06648bbb56d325",
+   "title": "Panel Counsel Empanelment by Department of Legal Affairs, Ministry of Law and Justice",
+   "org": "Department of Legal Affairs, Ministry of Law and Justice",
+   "location": null,
+   "deadline": null,
+   "type": "panel",
+   "summary": "Empanelment invitation for advocates as Panel Counsel for courts including Supreme Court.",
+   "url": "https://lexibal.com/panel-counsel-empanelment-ministry-of-law-and-justice/",
+   "source": "lexibal.com",
+   "first_seen": "2026-10-05"
+  }
+ ]
 }
