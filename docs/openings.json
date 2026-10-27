@@ -1,6 +1,30 @@
 {
- "updated": "2026-10-26T07:08:12.081510+00:00",
+ "updated": "2026-10-27T06:54:10.835159+00:00",
  "items": [
+  {
+   "id": "7703ee68b4df550b",
+   "title": "Orders related to empanelment of Advocates for Union - Panel Counsel",
+   "org": "Supreme Court of India / Government of India",
+   "location": "New Delhi",
+   "deadline": null,
+   "type": "panel",
+   "summary": "Official order regarding empanelment of Advocates as Panel Counsel before Supreme Court.",
+   "url": "https://www.legalaffairs.gov.in/static/uploads/2026/10/db96cce1c7ee9ff9f7ba37ccf85ece5b.pdf",
+   "source": "legalaffairs.gov.in",
+   "first_seen": "2026-10-27"
+  },
+  {
+   "id": "75df638a4c943f0a",
+   "title": "Advocate Empanelment Vacancy at Central Mine Planning & Design Institute Limited",
+   "org": "Central Mine Planning & Design Institute Limited (CMPDI)",
+   "location": "Ranchi",
+   "deadline": null,
+   "type": "panel",
+   "summary": "Empanelment of Advocates and Law Firms for representation before Supreme Court.",
+   "url": "https://thelawcommunicants.com/advocate-empanelment-vacancy-at-central-mine-planning-design-institute-limited-ranchi/",
+   "source": "thelawcommunicants.com",
+   "first_seen": "2026-10-27"
+  },
   {
    "id": "cfb58842cd0a3f78",
    "title": "CMPDI Advocates Recruitment 2026 - Empanelment",
